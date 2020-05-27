@@ -1,6 +1,8 @@
 import React from 'react'
 import 'element-theme-default';
 import { Button, Input, Select, Checkbox, Radio } from 'element-react';
+import store from '../../store'
+import { sendAction } from '../../action'
 class home extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +28,18 @@ class home extends React.Component {
       checkList: ['复选框 A', '选中且禁用']
     }
   }
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({})
+      console.log('subscribe', store.getState())
+    })
+  }
   render() {
     return (
       <div>
         <p>home index</p>
-        <Button type="primary">默认按钮</Button>
+        <Button onClick={val => this.handClick('btn', val)} type="primary">默认按钮</Button>
+        <p>{store.getState().value}</p>
         <Input onChange={val => this.change('name', val)} value={this.state.name} placeholder="请输入内容" />
         <div>
           {/* <Select onChange={val => this.change('value', val)} value={this.state.value} placeholder="请选择">
@@ -67,6 +76,10 @@ class home extends React.Component {
   }
   check(filed, val) {
     console.log(this.state, filed, val)
+  }
+  handClick(filed, val) {
+    const action = sendAction()
+    store.dispatch(action)
   }
 }
 
