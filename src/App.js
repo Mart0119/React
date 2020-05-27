@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom'
 import './App.css';
 
-import Home from './view/home/home'
+import Home from './pages/home/home'
 function App() {
   return (
     <Router>
